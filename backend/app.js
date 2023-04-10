@@ -11,21 +11,46 @@ const api = process.env.API_URL;
 app.use(express.json());
 app.use(morgan('tiny'));
 
-app.get(`${api}/jobs`, (req, res) =>{
-    const job = {
-        id: 1,
-        name: 'hair dresser',
-        from: 'Hadar Dimoll',
-        to: 'Karney Shomron',
-        image: 'some_url',
+const jobSchema = mongoose.Schema({
+    name: String,
+    from: String,
+    to: String,
+    image: String,
+    favorite: {
+        type: Boolean,
+        required: true
     }
-    res.send(job);
+})
+
+const Job = mongoose.model('Job', jobSchema);
+
+app.get(`${api}/jobs`, async (req, res) =>{
+    const jobList = await Job.find()
+    
+    if(!jobList) {
+        res.status(500).json({success: false})
+    }
+    res.send(jobList);
 })
 
 app.post(`${api}/jobs`, (req, res) =>{
-    const newJob = req.body;
-    console.log(newJob);
-    res.send(newJob);
+    const job = new Job({
+        name: req.body.name,
+        from: req.body.from,
+        to: req.body.to,
+        image: req.body.image,
+        favorite: req.body.favorite
+    })
+
+    job.save().then((createdJob => {
+        res.status(201).json(createdJob)
+    })).catch((err) => {
+        res.status(500).json({
+            error: err,
+            success: false
+        })
+    })
+    //res.send(newJob);
 })
 
 mongoose.connect(process.env.CONNECTION_STRING, {
