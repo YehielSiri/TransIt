@@ -2,57 +2,35 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 require('dotenv/config');
 
-const api = process.env.API_URL;
+app.use(cors());
+app.options('*', cors());
+
 
 // A middleware (a body parser)
 app.use(express.json());
 app.use(morgan('tiny'));
 
-const jobSchema = mongoose.Schema({
-    name: String,
-    from: String,
-    to: String,
-    image: String,
-    favorite: {
-        type: Boolean,
-        required: true
-    }
-})
 
-const Job = mongoose.model('Job', jobSchema);
+//Routers
+const categoriesRouter = require('./routers/categories');
+const jobsRouter = require('./routers/jobs');
+const trunksRouter = require('./routers/trunks');
+const usersRouter = require('./routers/users');
+const warehousesRouter = require('./routers/warehouses');
 
-app.get(`${api}/jobs`, async (req, res) =>{
-    const jobList = await Job.find()
-    
-    if(!jobList) {
-        res.status(500).json({success: false})
-    }
-    res.send(jobList);
-})
+const api = process.env.API_URL;
 
-app.post(`${api}/jobs`, (req, res) =>{
-    const job = new Job({
-        name: req.body.name,
-        from: req.body.from,
-        to: req.body.to,
-        image: req.body.image,
-        favorite: req.body.favorite
-    })
+app.use(`${api}/categories`, categoriesRouter);
+app.use(`${api}/jobs`, jobsRouter);
+app.use(`${api}/trunks`, trunksRouter);
+app.use(`${api}/users`, usersRouter);
+app.use(`${api}/warehouses`, warehousesRouter);
 
-    job.save().then((createdJob => {
-        res.status(201).json(createdJob)
-    })).catch((err) => {
-        res.status(500).json({
-            error: err,
-            success: false
-        })
-    })
-    //res.send(newJob);
-})
-
+//Database
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
