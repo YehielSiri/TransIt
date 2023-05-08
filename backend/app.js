@@ -22,8 +22,8 @@ const trunksRouter = require('./routers/trunks');
 const usersRouter = require('./routers/users');
 const warehousesRouter = require('./routers/warehouses');
 //sub-Routers
-const statusJobsRouter = require('../routers/statusJobs');
-const statusTrunksRouter = require('../routers/statusTrunks');
+const statusJobsRouter = require('./routers/statusJobs');
+const statusTrunksRouter = require('./routers/statusTrunks');
 
 const api = process.env.API_URL;
 
