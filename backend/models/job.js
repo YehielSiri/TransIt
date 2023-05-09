@@ -63,14 +63,24 @@ const jobSchema = mongoose.Schema({
         type: Date,
     },
     status: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'StatusJob',
         required: true,
-        default: 'onShelf' // Do you want it as a special schema!
     },
     isFavorite: {
         type: Boolean,
         required: true
     }
 })
+
+// let's use 'id' instead of '_id':
+jobSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// enable set a virtual (for setting 'id') to the job schema
+jobSchema.set('toJSON', {
+    virtuals: true,
+});
 
 exports.Job = mongoose.model('Job', jobSchema);

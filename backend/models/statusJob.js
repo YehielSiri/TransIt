@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Build a router or delete this file
 const statusJobSchema = mongoose.Schema({
     name: {
         type: String,
@@ -13,5 +12,16 @@ const statusJobSchema = mongoose.Schema({
         type: String,
     },
 })
+
+
+// let's use 'id' instead of '_id':
+statusJobSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// enable set a virtual (for setting 'id') to the job schema
+statusJobSchema.set('toJSON', {
+    virtuals: true,
+});
 
 exports.StatusJob = mongoose.model('StatusJob', statusJobSchema);

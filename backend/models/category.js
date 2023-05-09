@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const categorySchema = mongoose.Schema({
-    warehouse: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Warehouse',
-        required: true,
-    },
     name: {
         type: String,
         required: true,
@@ -17,5 +12,16 @@ const categorySchema = mongoose.Schema({
         type: String,
     },
 })
+
+
+// let's use 'id' instead of '_id':
+categorySchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// enable set a virtual (for setting 'id') to the job schema
+categorySchema.set('toJSON', {
+    virtuals: true,
+});
 
 exports.Category = mongoose.model('Category', categorySchema);

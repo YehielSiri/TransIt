@@ -1,4 +1,3 @@
-const { Warehouse } = require('../models/warehouse');
 const { Category } = require('../models/category');
 const express = require('express');
 const router = express.Router();
@@ -22,14 +21,8 @@ router.get('/:id', async(req, res) =>{
 })
 
 router.post('/', async (req, res)=> {
-    // Check if this warehouse id is realy exist
-    const warehouse = await Warehouse.findById(req.body.warehouse);
-    if(!warehouse)
-        return res.status(400).send('Invalid warehouse!')
-
     // Build the category to post
     let category = new Category({
-        warehouse: req.body.warehouse,
         name: req.body.name,
         icon: req.body.icon,
         color: req.body.color,
@@ -44,16 +37,9 @@ router.post('/', async (req, res)=> {
 })
 
 router.put('/:id', async(req, res) => {
-    // Check if this warehouse id is realy exist
-    const warehouse = await Warehouse.findById(req.body.warehouse);
-    if(!warehouse)
-        return res.status(400).send('Invalid warehouse!')
-
-
     const category = await Category.findByIdAndUpdate(
         req.params.id,
         {
-            warehouse: req.body.warehouse,
             name: req.body.name,
             icon: req.body.icon,
             color: req.body.color,

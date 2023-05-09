@@ -6,7 +6,14 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 router.get(`/`, async (req, res) =>{
-    const jobList = await Job.find().select/*('name image -_id');*/().populate('category');
+    // filter by categories - localhost:3000/api/v1/jobs?categories=firstID,secondID
+    let filter = {}
+    if(req.query.categories)
+    {
+        filter = {category: req.query.categories.split(',')}
+    }
+
+    const jobList = await Job.find(filter).populate('category');
     
     if(!jobList) {
         res.status(500).json({success: false})
@@ -112,5 +119,34 @@ router.delete('/:id', (req, res) =>{
     })
 })
 
+
+// This get return 'MongooseError: Model.countDocuments() no longer accepts a callback'
+// Take care of that or delete!
+router.get(`/get/count`, async (req, res) =>{
+    const jobCount = await Job.countDocuments((count) => count)        
+    
+    if(!jobCount) {
+        res.status(500).json({success: false})
+    }
+    res.send({
+        jobCount: jobCount
+    });
+})
+
+
+router.get(`/get/featured/:count`, async (req, res) =>{
+    // take the limit for favorited jobs - Number or 0
+    const count = req.params.count ? req.params.count : 0;
+
+    const jobs = await Job.find({isFavorite: true}).limit(+count);
+    // "+count" for casting from string to number        
+    
+    if(!jobs) {
+        res.status(500).json({success: false})
+    }
+    res.send({
+        favoritedJobs: jobs
+    });
+})
 
 module.exports = router;

@@ -17,4 +17,15 @@ const warehouseSchema = mongoose.Schema({
     },
 })
 
+
+// let's use 'id' instead of '_id':
+warehouseSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// enable set a virtual (for setting 'id') to the job schema
+warehouseSchema.set('toJSON', {
+    virtuals: true,
+});
+
 exports.Warehouse = mongoose.model('Warehouse', warehouseSchema);

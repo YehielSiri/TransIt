@@ -26,4 +26,15 @@ const trunkSchema = mongoose.Schema({
     },
 })
 
+
+// let's use 'id' instead of '_id':
+trunkSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// enable set a virtual (for setting 'id') to the job schema
+trunkSchema.set('toJSON', {
+    virtuals: true,
+});
+
 exports.Trunk = mongoose.model('Trunk', trunkSchema);

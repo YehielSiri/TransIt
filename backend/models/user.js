@@ -33,4 +33,15 @@ const userSchema = mongoose.Schema({
     },
 })
 
+
+// let's use 'id' instead of '_id':
+userSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// enable set a virtual (for setting 'id') to the job schema
+userSchema.set('toJSON', {
+    virtuals: true,
+});
+
 exports.User = mongoose.model('User', userSchema);
