@@ -12,15 +12,31 @@ router.get(`/`, async(req, res) =>{
     res.send(warehouseList);
 })
 
+
+router.get('/:id', async(req, res) =>{
+    const warehouse = await Warehouse.findById(req.params.id);
+
+    if(!warehouse) {
+        res.status(500).json({message: 'The warehouse with the given ID was not found.'})
+    }
+    res.status(200).send(warehouse);
+})
+
+
 router.post(`/`, async (req, res) =>{
-    // const user = await User.findById(req.body.user);
-    // if(!user)
-    //     return res.status(400).send('Invalid user!')
+    const user = await User.findById(req.body.user);
+    if(!user)
+        return res.status(400).send('Invalid user!')
 
     let warehouse = new Warehouse({
-        // user: req.body.user,
+        user: req.body.user,
         name: req.body.name,
-        address: req.body.address
+        street: req.body.street,
+        house: req.body.house,
+        // floor: req.body.floor,
+        // apartment: req.body.apartment,
+        city: req.body.city,
+        zip: req.body.zip,
     })
 
     warehouse = await warehouse.save();
@@ -33,18 +49,23 @@ router.post(`/`, async (req, res) =>{
 
 router.put('/:id', async(req, res) => {
     // Check if this user (courier company) id is realy exist
-    // const user = await User.findById(req.body.user);
-    // if(!user)
-    //     return res.status(400).send('Invalid user!')
+    const user = await User.findById(req.body.user);
+    if(!user)
+        return res.status(400).send('Invalid user!')
 
 
     const warehouse = await Warehouse.findByIdAndUpdate(
         req.params.id,
         {
-            // user: req.body.user,
+            user: req.body.user,
             name: req.body.name,
-            address: req.body.address,
-        },
+            street: req.body.street,
+            house: req.body.house,
+            // floor: req.body.floor,
+            // apartment: req.body.apartment,
+            city: req.body.city,
+            zip: req.body.zip,
+            },
         {new: true}
     )
 

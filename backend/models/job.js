@@ -12,14 +12,68 @@ const jobSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    from: {
-        type: String, // Think, does it the most correct type?? maybe 'Address'
-        required: true
-        // ***** 'defalt: ' - set here as a defalt the company address!
+    // From:
+    // ***** 'defalt: ' - set here as a defalt the company address!
+    fromStreet: {
+        type: String,
+        required: [true, "What is your street name?"],
+        maxLength: [50, "A street name can not be longer than 50 characters"],
     },
-    to: {
-        type: String, // Think, does it the most correct type?? maybe 'Address'
-        required: true
+    fromHouse: {
+        type: Number,
+        required: [true, "What is your house's number?"],
+        maxLength: [5, "A house number can not be longer than 5 characters"],
+    },
+    // fromFloor: {
+    //     type: Number,
+    //     required: [true, "What is your house's floor?"],
+    //     maxLength: [5, "There is still no four-digit floor"],
+    // },
+    // fromApartment: {
+    //     type: String,
+    //     required: [true, "What is your apartment ID?"],
+    //     maxLength: [50, "Apartment ID can not be longer than 50 characters"],
+    // },
+    fromCity: {
+        type: String,
+        required: [true, "In what city is your house?"],
+        maxLength: [50, "A city name can not be longer than 50 characters"],
+    },
+    fromZip: {
+        type: Number,
+        required: [true, "What is your zip code?"],
+        maxLength: [7, "Zip code can not be longer than 7 characters"],
+    },
+    // To:
+    toStreet: {
+        type: String,
+        required: [true, "What is your street name?"],
+        maxLength: [50, "A street name can not be longer than 50 characters"],
+    },
+    toHouse: {
+        type: Number,
+        required: [true, "What is your house's number?"],
+        maxLength: [5, "A house number can not be longer than 5 characters"],
+    },
+    // toFloor: {
+    //     type: Number,
+    //     required: [true, "What is your house's floor?"],
+    //     maxLength: [5, "There is still no four-digit floor"],
+    // },
+    // toApartment: {
+    //     type: String,
+    //     required: [true, "What is your apartment ID?"],
+    //     maxLength: [50, "Apartment ID can not be longer than 50 characters"],
+    // },
+    toCity: {
+        type: String,
+        required: [true, "In what city is your house?"],
+        maxLength: [50, "A city name can not be longer than 50 characters"],
+    },
+    toZip: {
+        type: Number,
+        required: [true, "What is your zip code?"],
+        maxLength: [7, "Zip code can not be longer than 7 characters"],
     },
     description: {
         type: String,
