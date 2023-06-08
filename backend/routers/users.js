@@ -48,6 +48,18 @@ router.post(`/`, async (req, res) =>{
 })
 
 
+router.post('/login', async(req, res) =>{
+    const user = await User.findOne({email: req.body.email})
+
+    if(!user) {
+        return res.status(400).send('The user not found.')
+    }
+
+    return res.status(200).send(user);
+})
+
+
+
 router.put('/:id', async(req, res) => {
 
     const user = await User.findByIdAndUpdate(
