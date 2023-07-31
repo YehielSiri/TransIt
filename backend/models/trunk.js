@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 
 const trunkSchema = mongoose.Schema({
+    // trunkItems: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'trunkItem',
+    //     required: [true, "An empty trunk worth nothing"]
+    // }],
     trunkItems: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'trunkItem',
+        ref: 'Job',
         required: [true, "An empty trunk worth nothing"]
     }],
     courior: {
