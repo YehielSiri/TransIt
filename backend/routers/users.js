@@ -24,6 +24,7 @@ router.get('/:id', async(req, res) =>{
 })
 
 
+// Admin 'post request' - unlimited
 router.post(`/`, async (req, res) =>{
     let user = new User({
         name: req.body.name,
@@ -43,10 +44,46 @@ router.post(`/`, async (req, res) =>{
     user = await user.save();
 
     if(!user)
-        return res.status(500).send('The user cannot be created!')
+        return res.status(400).send('The user cannot be created!')
 
     res.send(user);
 })
+
+router.put('/:id',async (req, res)=> {
+
+    const userExist = await User.findById(req.params.id);
+    let newPassword
+    if(req.body.password) {
+        newPassword = bcrypt.hashSync(req.body.password, 10)
+    } else {
+        newPassword = userExist.passwordHash;
+    }
+
+    const userUpdated = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+            name: req.body.name,
+            email: req.body.email,
+            passwordHash: newPassword,
+            isCompany: req.body.isCompany,
+            company: req.body.company,
+            street: req.body.street,
+            house: req.body.house,
+            // floor: req.body.floor,
+            // apartment: req.body.apartment,
+            city: req.body.city,
+            zip: req.body.zip,
+            phone: req.body.phone,
+        },
+        { new: true}
+    )
+
+    if(!userUpdated)
+    return res.status(400).send('the user cannot be created!')
+
+    res.send(userUpdated);
+})
+
 
 
 router.post('/login', async(req, res) =>{
@@ -62,7 +99,9 @@ router.post('/login', async(req, res) =>{
         // User has already authenticated
         const token = jwt.sign(
             {
-                userId: user.id
+                userId: user.id,
+                // Verify if its an admin. we don't want to do this in the frontend because security
+                isAdmin: user.isAdmin 
             },
             secret,
             {expiresIn: '1w'}
@@ -73,19 +112,49 @@ router.post('/login', async(req, res) =>{
         res.status(400).send('Password is wrong!')
     }
 
-    return res.status(200).send(user);
+})
+
+router.post('/register', async (req, res) => {
+    let user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        passwordHash: bcrypt.hashSync(req.body.password, 1),
+        isCompany: req.body.isCompany,
+        company: req.body.company,
+        street: req.body.street,
+        house: req.body.house,
+        // floor: req.body.floor,
+        // apartment: req.body.apartment,
+        city: req.body.city,
+        zip: req.body.zip,
+        phone: req.body.phone,
+    })
+
+    user = await user.save();
+
+    if(!user)
+    return res.status(400).send('The user cannot be created!')
+
+    res.send(user);
 })
 
 
+router.put('/:id',async (req, res)=> {
 
-router.put('/:id', async(req, res) => {
+    const userExist = await User.findById(req.params.id);
+    let newPassword
+    if(req.body.password) {
+        newPassword = bcrypt.hashSync(req.body.password, 10)
+    } else {
+        newPassword = userExist.passwordHash;
+    }
 
-    const user = await User.findByIdAndUpdate(
+    const userUpdated = await User.findByIdAndUpdate(
         req.params.id,
         {
             name: req.body.name,
             email: req.body.email,
-            passwordHash: req.body.passwordHash,
+            passwordHash: newPassword,
             isCompany: req.body.isCompany,
             company: req.body.company,
             street: req.body.street,
@@ -96,14 +165,38 @@ router.put('/:id', async(req, res) => {
             zip: req.body.zip,
             phone: req.body.phone,
         },
-        {new: true}
+        { new: true}
     )
 
-    if(!user)
-    return res.status(404).send('The user cannot be updated!')
+    if(!userUpdated)
+    return res.status(400).send('the user cannot be updated!')
 
-    res.send(user);
+    res.send(userUpdated);
+})
 
+router.delete('/:id', (req, res) =>{
+    User.findByIdAndRemove(req.params.id).then(user =>{
+        if(user) {
+            return res.status(200).json({success: true, message: 'The user is deleted!'})
+        } else {
+            return res.status(404).json({success: false, message: 'User not found!'})
+        }
+    }).catch(err => {
+        return res.status(500).json({success: false, error: err})
+    })
+})
+
+// This get return 'MongooseError: Model.countDocuments() no longer accepts a callback'
+// Take care of that or delete!
+router.get(`/get/count`, async (req, res) =>{
+    const userCount = await User.countDocuments((count) => count)        
+    
+    if(!userCount) {
+        res.status(500).json({success: false})
+    }
+    res.send({
+        userCount: userCount
+    });
 })
 
 

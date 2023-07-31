@@ -79,8 +79,9 @@ router.post(`/`, async (req, res) =>{
 
 
 router.put('/:id', async(req, res) => {
-    if(!mongoose.isValidObjectId(req.params.id))
-        res.status(400).send('Invalid job ID');
+    if(!mongoose.isValidObjectId(req.params.id)) {
+        return res.status(400).send('Invalid job ID')
+    }
     // Check if this warehouse id is realy exist
     const warehouse = await Warehouse.findById(req.body.warehouse);
     if(!warehouse)
@@ -129,10 +130,10 @@ router.put('/:id', async(req, res) => {
 
 router.delete('/:id', (req, res) =>{
     Job.findByIdAndRemove(req.params.id).then(job =>{
-        if(category) {
-            return res.status(200).json({success: true, message: 'The category is deleted!'})
+        if(job) {
+            return res.status(200).json({success: true, message: 'The job is deleted!'})
         } else {
-            return res.status(404).json({success: false, message: 'Category not found!'})
+            return res.status(404).json({success: false, message: 'Job not found!'})
         }
     }).catch(err => {
         return res.status(400).json({success: false, error: err})
@@ -164,9 +165,7 @@ router.get(`/get/featured/:count`, async (req, res) =>{
     if(!jobs) {
         res.status(500).json({success: false})
     }
-    res.send({
-        favoritedJobs: jobs
-    });
+    res.send(jobs);
 })
 
 module.exports = router;

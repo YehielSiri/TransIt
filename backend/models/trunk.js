@@ -6,11 +6,11 @@ const trunkSchema = mongoose.Schema({
         ref: 'User',
         required: [true, "There is no trunk of nobody"],
     },
-    jobs: {
+    trunkItems: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Job',
+        ref: 'trunkItem',
         required: [true, "An empty trunk worth nothing"]
-    },
+    }],
     totalPrice: {
         type: Number,
         required: true,
