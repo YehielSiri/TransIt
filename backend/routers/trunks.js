@@ -1,7 +1,7 @@
 const {Trunk} = require('../models/trunk');
 const express = require('express');
 const { Job } = require('../models/job');
-const { TrunkItem } = require('../models/trunk-item');
+//const { TrunkItem } = require('../models/trunk-item');
 const router = express.Router();
 
 
