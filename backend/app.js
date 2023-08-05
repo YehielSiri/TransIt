@@ -16,7 +16,8 @@ app.options('*', cors());
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(authJwt);
-    // Handling errors in butiful way
+app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
+// Handling errors in butiful way
 app.use(errorHandler);
 
 
