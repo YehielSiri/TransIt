@@ -24,7 +24,7 @@ const Checkout = (props) => {
     const [ user, setUser ] = useState();
 
     useEffect(() => {
-        setOrderItems(props.cartItems)
+        setTrunkItems(props.cartItems)
 
         if(context.stateUser.isAuthenticated) {
             setUser(context.stateUser.user.sub)
@@ -39,17 +39,17 @@ const Checkout = (props) => {
         }
 
         return () => {
-            setOrderItems();
+            setTrunkItems();
         }
     }, [])
 
     const checkOut = () => {
-        console.log("orders", orderItems)
-        let order = {
+        console.log("trunks", trunkItems)
+        let trunk = {
             city,
             country,
-            dateOrdered: Date.now(),
-            orderItems,
+            dateTrunked: Date.now(),
+            trunkItems,
             phone,
             shippingAddress1: address,
             shippingAddress2: address2,
@@ -58,7 +58,7 @@ const Checkout = (props) => {
             zip,
         }
 
-        props.navigation.navigate("Payment", {order: order })
+        props.navigation.navigate("Payment", {trunk: trunk })
     }
 
     return (
