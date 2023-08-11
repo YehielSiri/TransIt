@@ -15,7 +15,7 @@ import * as actions from '../../Redux/Actions/cartActions';
 var { width } = Dimensions.get("window");
 
 const JobCard = (props) => {
-    const { name, price, image, countInStock } = props;
+    const { name, fromStreet, fromHouse, fromCity, fromZip, toStreet, toHouse, toCity, toZip, price, deliveryTime} = props;
 
     return (
         <View style={styles.container}>
