@@ -36,7 +36,7 @@ const JobContainer = (props) => {
         setFocus(false);
         setActive(-1);
         
-        // Products
+        // Jobs
         axios
           .get(`${baseURL}jobs`)
           .then((res) => {
