@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     active: {
-        backgroundColor: '#03bafc'
+        backgroundColor: '#03bafc'/*'#027e36' */
     },
     inactive: {
-        backgroundColor: '#a0e1eb'
+        backgroundColor: '#a0e1eb'/*'#95d9a5' '#d2edd8'*/
     }
 })
 

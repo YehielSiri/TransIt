@@ -20,7 +20,7 @@ const SearchedJob = (props) => {
                         <Left>
                             <Thumbnail 
                                 source={{uri: item.image ? 
-                                    item.image : ''/*'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'*/
+                                    item.image : 'https://github.com/YehielSiri/TransIt/blob/main/transit/assets/box-trunk.png'
                                         }}
                             />
                         </Left>

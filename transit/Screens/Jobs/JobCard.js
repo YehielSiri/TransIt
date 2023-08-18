@@ -23,7 +23,7 @@ const JobCard = (props) => {
             style={styles.image}
             resizeMode="contain"
             source={{uri: image ? 
-                image : ''/*'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'*/}}
+                image : 'https://github.com/YehielSiri/TransIt/blob/main/transit/assets/box-trunk.png'}}
             /> }
             <View style={styles.card}/>
             <Text style={styles.title}>
