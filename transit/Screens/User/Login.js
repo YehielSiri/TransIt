@@ -6,8 +6,8 @@ import Error from "../../Shared/Error";
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
 // Context
-import AuthGlobal from "../../Context/store/AuthGlobal";
-import { loginUser } from "../../Context/actions/Auth.actions";
+// import AuthGlobal from "../../Context/store/AuthGlobal";
+// import { loginUser } from "../../Context/actions/Auth.actions";
 
 const Login = (props) => {
   const context = useContext(AuthGlobal);

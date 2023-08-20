@@ -12,18 +12,18 @@ import {
   Right,
   H1
 } from "native-base";
-import { SwipeListView } from 'react-native-swipe-list-view'
+// import { SwipeListView } from 'react-native-swipe-list-view'
 import CartItem from './CartItem'
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import EasyButton from "../../Shared/StyledComponents/EasyButton"
 
 import { connect } from "react-redux";
-import * as actions from "../../Redux/Actions/cartActions";
-import AuthGlobal from "../../Context/store/AuthGlobal"
-import axios from "axios";
-import baseURL from "../../assets/common/baseUrl";
-import AsyncStorage from "@react-native-community/async-storage"
+// import * as actions from "../../Redux/Actions/cartActions";
+// import AuthGlobal from "../../Context/store/AuthGlobal"
+// import axios from "axios";
+// import baseURL from "../../assets/common/baseUrl";
+// import AsyncStorage from "@react-native-community/async-storage"
 
 var { height, width } = Dimensions.get("window");
 

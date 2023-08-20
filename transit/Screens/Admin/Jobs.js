@@ -13,9 +13,9 @@ import Icon from "react-native-vector-icons/FontAwesome"
 import { useFocusEffect } from "@react-navigation/native"
 import ListItem from "./ListItem"
 
-import axios from "axios"
-import baseURL from "../../assets/common/baseUrl"
-import AsyncStorage from "@react-native-community/async-storage"
+// import axios from "axios"
+// import baseURL from "../../assets/common/baseUrl"
+// import AsyncStorage from "@react-native-community/async-storage"
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
 var { height, width } = Dimensions.get("window")

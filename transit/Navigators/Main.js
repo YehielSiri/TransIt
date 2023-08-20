@@ -10,7 +10,7 @@ import UserNavigator from "./UserNavigator";
 import AdminNavigator from "./AdminNavigator";
 
 import CartIcon from "../Shared/CartIcon";
-import AuthGlobal from "../Context/store/AuthGlobal";
+// import AuthGlobal from "../Context/store/AuthGlobal";
 
 const Tab = createBottomTabNavigator();
 

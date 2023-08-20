@@ -8,9 +8,9 @@ import {
     StyleSheet 
 } from "react-native"
 import EasyButton from "../../Shared/StyledComponents/EasyButton"
-import baseURL from "../../assets/common/baseUrl";
-import axios from "axios";
-import AsyncStorage from "@react-native-community/async-storage"
+// import baseURL from "../../assets/common/baseUrl";
+// import axios from "axios";
+// import AsyncStorage from "@react-native-community/async-storage"
 import { add } from "react-native-reanimated";
 
 var { width } = Dimensions.get("window")

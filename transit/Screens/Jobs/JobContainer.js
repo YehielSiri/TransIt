@@ -9,14 +9,14 @@ import {
 } from "react-native";
 import { Container, Header, Icon, Item, Input, Text } from "native-base";
 import { useFocusEffect } from '@react-navigation/native'
-import baseUrl from "../../assets/common/baseUrl"
-import axios from 'axios';
+// import baseUrl from "../../assets/common/baseUrl"
+// import axios from 'axios';
 
 import JobList from "./JobList";
 import SearchedJob from "./SearchedJobs";
 import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
-import baseURL from "../../assets/common/baseUrl";
+// import baseURL from "../../assets/common/baseUrl";
 
 var { height } = Dimensions.get('window')
 

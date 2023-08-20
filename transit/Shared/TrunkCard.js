@@ -4,11 +4,11 @@ import { Picker } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import TrafficLight from "./StyledComponents/TrafficLight";
 import EasyButton from "./StyledComponents/EasyButton";
-import Toast from "react-native-toast-message";
+// import Toast from "react-native-toast-message";
 
-import AsyncStorage from "@react-native-community/async-storage";
-import axios from "axios";
-import baseURL from "../assets/common/baseUrl";
+// import AsyncStorage from "@react-native-community/async-storage";
+// import axios from "axios";
+// import baseURL from "../assets/common/baseUrl";
 
 const codes = [
   { name: "pending", code: "3" },

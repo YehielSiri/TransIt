@@ -7,10 +7,10 @@ import {
     Text,
     Button
 } from 'react-native'
-import Toast from 'react-native-toast-message'
+// import Toast from 'react-native-toast-message'
 import EasyButton from "../../Shared/StyledComponents/EasyButton"
 import { connect } from 'react-redux'
-import * as actions from '../../Redux/Actions/cartActions';
+// import * as actions from '../../Redux/Actions/cartActions';
 
 var { width } = Dimensions.get("window");
 
