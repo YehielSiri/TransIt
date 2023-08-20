@@ -124,7 +124,7 @@ const jobSchema = mongoose.Schema({
     isFavorite: {
         type: Boolean,
         required: true,
-        default: false
+        default: false,
     }
 })
 
